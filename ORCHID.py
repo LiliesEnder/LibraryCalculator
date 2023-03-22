@@ -51,17 +51,17 @@ f.close() #Закрытие файла
 
 # Работает с окошком
 root = Tk()
-root.title ("ФИАЛКА")
+root.title ("ОРХИДЕЯ")
 root.geometry('800x400')
 #root["bg"] = "lavenderBlush2"
 
 #C = Canvas(root, height=0, width=0)
-filename = PhotoImage(file = "fon1.png")
+filename = PhotoImage(file = "fon2.png")
 background_label = Label(root, image=filename)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 master = Frame(root) # Создание красивого большого окошечка с надписью Лилия
-master["bg"] = "lavenderBlush2"
+master["bg"] = "lavender"
 master.grid(row=2, column=1, columnspan=7)
 
 
@@ -69,27 +69,27 @@ master.grid(row=2, column=1, columnspan=7)
 # Тут надписи над столбцами таблицы
 
 Number = Label (master, text = '№', fg = 'gray30') # Пишет надпись "номер"
-Number.config(font = ('Roboto 15 italic'), bg="lavenderBlush2", width=3)
+Number.config(font = ('Roboto 15 italic'), bg="lavender", width=3)
 
 Isd = Label (master, text = 'Издательство', fg = 'gray30') # Пишет надпись "Издательство"
-Isd.config(font = ('Roboto 15 italic'), bg="lavenderBlush2", width=13)
+Isd.config(font = ('Roboto 15 italic'), bg="lavender", width=13)
 
 God = Label (master, text = 'Год', fg = 'gray33') # Пишет надпись "Год"
-God.config(font = 'Roboto 15 italic', bg="lavenderBlush2", width = 8,)
+God.config(font = 'Roboto 15 italic', bg="lavender", width = 8,)
 
 Stoim = Label (master, text = 'Стоимость', fg = 'gray30') # Пишет надпись "Стоимость"
-Stoim.config(font = 'Roboto 15 italic', bg="lavenderBlush2", width = 10)
+Stoim.config(font = 'Roboto 15 italic', bg="lavender", width = 10)
 
 Kolvo = Label (master, text = 'Кол-во', fg = 'gray30') # Пишет надпись "Кол-во"
-Kolvo.config(font = 'Roboto 15 italic', bg="lavenderBlush2", width = 6)
+Kolvo.config(font = 'Roboto 15 italic', bg="lavender", width = 6)
 
 Cena = Label (master, text = 'Цена', fg = 'gray30') # Пишет надпись "Цена"
-Cena.config(font = 'Roboto 15 italic', bg="lavenderBlush2", width = 10)
+Cena.config(font = 'Roboto 15 italic', bg="lavender", width = 10)
 
 Koplate = Label (root, text = 'К ОПЛАТЕ', fg = 'gray30') # Пишет надпись "К оплате"
 Koplate.config(font = ('Noto Sans JP Medium', 19), width = 20, bg="lavender")
 
-koplate = Label (root, text = f'{kopl}', fg = 'gray30')  # поле вывода "К оплате"
+koplate = Label (root, text = f'{kopl:.2f}', fg = 'gray30')  # поле вывода "К оплате"
 koplate.config(font = ('Noto Sans JP Medium', 19),width = 20, bg="lavender")
 
 
@@ -124,37 +124,28 @@ def b1(*args): # это чтобы постоянно обновлялось п�
         
         if isdatelstvo == 'ВОЕНМЕХ':# это алгоритм калькулятора если ВОЕНМЕХ
             c1 = s*5
-            if c1<100:
-                c1 = 100
             c1 = c1*n
-            c1 = ceil(c1)
-            mas_cena[i].configure(text= f"{c1}")
+            mas_cena[i].configure(text= f"{c1:.2f}")
             kopl += c1
         else:# Это если не наше издетельство алгоритм калькулятора
             if g in mas_God:
                 i1 = mas_God.index(g)
                 i2 = mas_Koe[i1]
                 c1 = s*i2
-                if c1<100:
-                    c1 = 100
                 c1=c1*n
-                c1 = ceil(c1)
-                mas_cena[i].configure(text= f"{c1}")
+                mas_cena[i].configure(text= f"{c1:.2f}")
                 kopl += c1
             elif g<mas_God[0]: #Тут задается, что надо делать если год меньше, указанного первым в файле
                 i2 = mas_Koe[0]
                 c1 = s*i2
-                if c1<100:
-                    c1 = 100
                 c1=c1*n
-                c1 = ceil(c1)
-                mas_cena[i].configure(text= f"{c1}")
+                mas_cena[i].configure(text= f"{c1:.2f}")
                 kopl += c1
             else:
                 mas_cena[i].configure(text= "0")
     #koplate.delete(0, END)
     #koplate.insert(0, str(kopl))
-    koplate.configure(text = f'{kopl}')
+    koplate.configure(text = f'{kopl:.2f}')
 def udal(event):
     global mas_number, mas_isd, mas_god, mas_stoim, mas_kol, mas_cena, mas_del, mas_var, mas_variable, nomer
     but2 = event.widget
@@ -195,7 +186,8 @@ def mycom(*args):
 
     nomer += 1
     number1 = Label (master) # Выводит номер экземпляра
-    number1.config(font = ('Noto Sans JP Medium', 16), width = 4, text = f"{nomer}", borderwidth=6, relief="flat", fg = 'gray30',bg="linen")
+    number1.config(font = ('Noto Sans JP Medium', 16), width = 4, text = f"{nomer}",
+    borderwidth=6, relief="flat", fg = 'gray25',bg="snow")
     mas_number.append(number1)
     
     OPTIONS1 = [ # Описание первой ячейки выбора: издательство
@@ -207,20 +199,22 @@ def mycom(*args):
     variable1.set(OPTIONS1[0]) # default value
 
     isd1 = OptionMenu(master, variable1, *OPTIONS1) # Выводится список с издательством
-    isd1.config(font = ('Noto Sans JP Medium', 16),width = 8, fg = 'gray30', bg="linen")
+    isd1.config(font = ('Noto Sans JP Medium', 16),width = 8, fg = 'gray25', bg="snow")
     mas_variable.append(variable1)
     mas_isd.append(isd1)
     
     god1 = Entry(master) #эта строка отвечает за поле ввода
-    god1.config(font = ('Noto Sans JP Medium', 16), width = 7, borderwidth=6, relief="flat", fg = 'gray30', bg = 'linen')
+    god1.config(font = ('Noto Sans JP Medium', 16), width = 7, borderwidth=6, relief="flat", fg = 'gray25', bg = 'snow')
     mas_god.append(god1)
 
     stoim1 = Entry(master) #эта строка отвечает за поле ввода
-    stoim1.config(font = ('Noto Sans JP Medium', 16), width = 8, borderwidth=6, relief="flat", fg = 'gray30', bg = 'linen')
+    stoim1.config(font = ('Noto Sans JP Medium', 16), width = 8, borderwidth=6, relief="flat", fg = 'gray25',
+    bg = 'snow')
     mas_stoim.append(stoim1)
     
     cena1 = Label(master) # поле вывода "Цены"
-    cena1.config(font = ('Noto Sans JP Medium', 19), width = 7, borderwidth=3, relief="flat", text = f"{c1}", fg = 'red4', bg="linen")
+    cena1.config(font = ('Noto Sans JP Medium', 19), width = 7, borderwidth=3, relief="flat", text = f"{c1:.2f}", fg = 'red4',
+    bg="snow")
     mas_cena.append(cena1)
     Kol1 = [ # Описание первой ячейки выбора: Кол-во
     " 1 ",
@@ -232,13 +226,13 @@ def mycom(*args):
     var1.set(Kol1[0]) # default value
     
     kol1 = OptionMenu(master, var1, *Kol1)# Выводится список с кол-во
-    kol1.config(font = ('Noto Sans JP Medium', 16),width = 2, fg = 'gray30',bg="linen")
+    kol1.config(font = ('Noto Sans JP Medium', 16),width = 2, fg = 'gray25',bg="snow")
     mas_var.append(var1)
     mas_kol.append(kol1)
     
     but1 = Button(master, text = 'Удалить') #кнопочка "удалить"
     but1.bind('<Button-1>', udal)
-    but1.config(font = ('Noto Sans JP Medium', 12), width = 8, bg="lavender")
+    but1.config(font = ('Noto Sans JP Medium', 12), width = 8, bg="honeydew2")
     mas_del.append(but1)
 
     # Это распаковщики
@@ -264,7 +258,7 @@ def mycom(*args):
 
 
 but1 = Button(root, text = 'Добавить', command = mycom) #кнопочка "Добавить"
-but1.config(font = ('Noto Sans JP Medium', 12), width = 9, bg="lavender")
+but1.config(font = ('Noto Sans JP Medium', 12), width = 9, bg="honeydew2")
 
 
 mycom()
